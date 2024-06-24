@@ -1,5 +1,3 @@
-@media (max-width: 767px) {
-    .Stats {
-      display: none;
-    }
-  }
+.WordBreak {
+  word-break: break-all;
+}

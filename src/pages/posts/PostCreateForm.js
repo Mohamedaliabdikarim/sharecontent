@@ -1,60 +1,47 @@
 import React, { useRef, useState } from "react";
-
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
-import Alert from "react-bootstrap/Alert";
-import Image from "react-bootstrap/Image";
-
+import { Form, Button, Row, Col, Container, Alert, Image } from "react-bootstrap";
+import { useHistory } from "react-router";
+import { axiosReq } from "../../api/axiosDefaults";
+import { useRedirect } from "../../hooks/useRedirect";
 import Asset from "../../components/Asset";
-
 import Upload from "../../assets/upload.png";
-
 import styles from "../../styles/PostCreateEditForm.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
 
-import { useHistory } from "react-router";
-import { axiosReq } from "../../api/axiosDefaults";
-import { useRedirect } from "../../hooks/useRedirect";
-
 function PostCreateForm() {
   useRedirect("loggedOut");
   const [errors, setErrors] = useState({});
-
   const [postData, setPostData] = useState({
     title: "",
     content: "",
     image: "",
   });
   const { title, content, image } = postData;
-
   const imageInput = useRef(null);
   const history = useHistory();
 
   const handleChange = (event) => {
-    setPostData({
-      ...postData,
-      [event.target.name]: event.target.value,
-    });
+    const { name, value } = event.target;
+    setPostData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleChangeImage = (event) => {
     if (event.target.files.length) {
       URL.revokeObjectURL(image);
-      setPostData({
-        ...postData,
+      setPostData((prevData) => ({
+        ...prevData,
         image: URL.createObjectURL(event.target.files[0]),
-      });
+      }));
     }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
-
     formData.append("title", title);
     formData.append("content", content);
     formData.append("image", imageInput.current.files[0]);
@@ -63,7 +50,6 @@ function PostCreateForm() {
       const { data } = await axiosReq.post("/posts/", formData);
       history.push(`/posts/${data.id}`);
     } catch (err) {
-      // console.log(err);
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
       }
@@ -107,10 +93,10 @@ function PostCreateForm() {
         className={`${btnStyles.Button} ${btnStyles.Blue}`}
         onClick={() => history.goBack()}
       >
-        cancel
+        Cancel
       </Button>
       <Button className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
-        create
+        Create
       </Button>
     </div>
   );
@@ -142,13 +128,9 @@ function PostCreateForm() {
                   className="d-flex justify-content-center"
                   htmlFor="image-upload"
                 >
-                  <Asset
-                    src={Upload}
-                    message="Click or tap to upload an image"
-                  />
+                  <Asset src={Upload} message="Click or tap to upload an image" />
                 </Form.Label>
               )}
-
               <Form.File
                 id="image-upload"
                 accept="image/*"

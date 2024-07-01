@@ -25,7 +25,7 @@ const Post = (props) => {
   } = props;
 
   const currentUser = useCurrentUser();
-  const is_owner = currentUser?.username === owner;
+  const isOwner = currentUser?.username === owner;
   const history = useHistory();
 
   const handleEdit = () => {
@@ -37,7 +37,7 @@ const Post = (props) => {
       await axiosRes.delete(`/posts/${id}/`);
       history.goBack();
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -46,14 +46,14 @@ const Post = (props) => {
       const { data } = await axiosRes.post("/likes/", { post: id });
       setPosts((prevPosts) => ({
         ...prevPosts,
-        results: prevPosts.results.map((post) => {
-          return post.id === id
+        results: prevPosts.results.map((post) =>
+          post.id === id
             ? { ...post, likes_count: post.likes_count + 1, like_id: data.id }
-            : post;
-        }),
+            : post
+        ),
       }));
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -62,14 +62,14 @@ const Post = (props) => {
       await axiosRes.delete(`/likes/${like_id}/`);
       setPosts((prevPosts) => ({
         ...prevPosts,
-        results: prevPosts.results.map((post) => {
-          return post.id === id
+        results: prevPosts.results.map((post) =>
+          post.id === id
             ? { ...post, likes_count: post.likes_count - 1, like_id: null }
-            : post;
-        }),
+            : post
+        ),
       }));
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -83,7 +83,7 @@ const Post = (props) => {
           </Link>
           <div className="d-flex align-items-center">
             <span>{updated_at}</span>
-            {is_owner && postPage && (
+            {isOwner && postPage && (
               <MoreDropdown
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}
@@ -99,7 +99,7 @@ const Post = (props) => {
         {title && <Card.Title className="text-center">{title}</Card.Title>}
         {content && <Card.Text>{content}</Card.Text>}
         <div className={styles.PostBar}>
-          {is_owner ? (
+          {isOwner ? (
             <OverlayTrigger
               placement="top"
               overlay={<Tooltip>You can't like your own post!</Tooltip>}

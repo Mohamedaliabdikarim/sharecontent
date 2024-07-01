@@ -39,6 +39,7 @@ const NavBar = () => {
       <i className="far fa-plus-square"></i>Add post
     </NavLink>
   );
+
   const loggedInIcons = (
     <>
       <NavLink
@@ -66,6 +67,7 @@ const NavBar = () => {
       </NavLink>
     </>
   );
+
   const loggedOutIcons = (
     <>
       <NavLink
@@ -114,7 +116,14 @@ const NavBar = () => {
             >
               <i className="fas fa-home"></i>Home
             </NavLink>
-
+            <NavLink
+              exact
+              className={styles.NavLink}
+              activeClassName={styles.Active}
+              to="/about"
+            >
+              <i className="fas fa-info-circle"></i>About
+            </NavLink>
             {currentUser ? loggedInIcons : loggedOutIcons}
           </Nav>
         </Navbar.Collapse>

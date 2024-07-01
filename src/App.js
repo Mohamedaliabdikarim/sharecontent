@@ -1,5 +1,7 @@
+import React from "react";
 import styles from "./App.module.css";
 import NavBar from "./components/NavBar";
+import Footer from "./components/Footer"; // Import Footer component
 import Container from "react-bootstrap/Container";
 import { Route, Switch } from "react-router-dom";
 import "./api/axiosDefaults";
@@ -15,6 +17,7 @@ import UsernameForm from "./pages/profiles/UsernameForm";
 import UserPasswordForm from "./pages/profiles/UserPasswordForm";
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
 import NotFound from "./components/NotFound";
+import About from "./pages/About/About"; 
 
 function App() {
   const currentUser = useCurrentUser();
@@ -73,10 +76,11 @@ function App() {
             path="/profiles/:id/edit"
             render={() => <ProfileEditForm />}
           />
-
+          <Route exact path="/about" render={() => <About />} />
           <Route render={() => <NotFound />} />
         </Switch>
       </Container>
+      <Footer /> {/* Add Footer component */}
     </div>
   );
 }

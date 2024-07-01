@@ -3,9 +3,9 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
-import appStyles from "../../App.module.css";  // Adjusted path
-import aboutUsImage from "../../assets/about-us.jpg";  // Correct path to the image
-import styles from "../../styles/about.module.css";  // Import custom CSS
+import appStyles from "../../App.module.css";  
+import aboutUsImage from "../../assets/about-us.jpg";  
+import styles from "../../styles/about.module.css";  
 
 const About = () => {
   return (

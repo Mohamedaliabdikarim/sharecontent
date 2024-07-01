@@ -1,16 +1,25 @@
-/* Custom CSS styles */
 .custom-container {
-    padding: 20px;
+  padding: 20px;
+  min-height: 100vh; /* Sørger for at containeren tar opp hele høyden til viewport */
+  display: flex; /* Legger til flexbox for å muliggjøre sentrering */
+  flex-direction: column; /* Gjør det mulig å sentrere vertikalt */
+  justify-content: center; /* Sentrerer innholdet vertikalt */
+}
+
+.custom-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.custom-paragraph {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+@media screen and (max-width: 991px) {
+  .ProfileImage {
+    width: 250px;
+    height: 250px;
   }
-  
-  .custom-title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  .custom-paragraph {
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-  }
-  
+}

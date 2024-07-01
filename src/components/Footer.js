@@ -26,7 +26,7 @@ const Footer = () => {
         </Row>
         <Row>
           <Col className="text-center py-3">
-            &copy; 2024 sharecontent
+            &copy; 2024 Sharecontent
           </Col>
         </Row>
       </Container>
